@@ -6,7 +6,7 @@
         {
             Group g = new Group();
             //Group g1 = new Group();
-            g.PrintGroup();
+            g.Print();
             //g.PrintExams();
             //g1.PrintGroup();
             //g.EditStudent(3, "Shapovalov", "Artem", 23);
@@ -16,7 +16,7 @@
             //g1.PrintGroup();
             //g.EliminationStudent();
             //g.UnsuccessfulStudent();
-            //g.PrintGroup();
+            //g.Print();
             Console.Write(g[1]);
         }
     }

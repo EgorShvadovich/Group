@@ -2,7 +2,8 @@
 
 namespace Group
 {
-    internal class Group
+    
+    internal class Group : Student
     {
         static int countStudents = 12;
         ArrayList students = new ArrayList();
@@ -20,9 +21,8 @@ namespace Group
         /// <summary>
         /// Конструктор без параметров который инициализирует группу студентов.
         /// </summary>
-        public Group()
+        public Group() 
         {
-
             for (int i = 0; i < countStudents; i++)
             {
                 students.Add(new Student());
@@ -123,13 +123,16 @@ namespace Group
         /// <param name="surname">Фамилия</param>
         /// <param name="name">Имя</param>
         /// <param name="age">Возраст</param>
-        public void AddSudent(string surname, string name, int age)
+        public void AddStudent(string surname, string name, int age)
         {
             students.Add(new Student());
             (students[students.Count] as Student).Name = names[random.Next(0, 12)];
             (students[students.Count] as Student).Surname = surnames[random.Next(0, 12)];
             (students[students.Count] as Student).Age = random.Next(16, 50);
             (students[students.Count] as Student).SetExam();
+        }
+        public void AddStudent()
+        {
         }
         /// <summary>
         /// Этот метод редактирует студента в группе.
@@ -218,7 +221,7 @@ namespace Group
         /// <summary>
         /// Показ группы в консоль.
         /// </summary>
-        public void PrintGroup()
+        public override void Print()
         {
             Console.WriteLine("Nazvanie group: " + nameGroup);
             Console.WriteLine("Specialization group: " + nameSpecalizationGroup);

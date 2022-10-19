@@ -1,18 +1,11 @@
 ﻿namespace Group
 {
-    internal class Student
+    
+     class Student : Person
     {
-        private string name;
-        private int age;
-        private string surname;
-
-        private DateTime dateBirthday;
-
-        private string address;
         private bool exam;
-        private int phoneNumber;
-
-        public int[] dzArr = new int[10];
+        private static int x = 10;
+        public int[] dzArr = new int[x];
 
         Random random = new Random();
 
@@ -20,131 +13,15 @@
         /// <summary>
         /// Конструктор без параметров который рандомным образом заполняет успеваемость студента.
         /// </summary>
-        public Student()
+        public Student() : base() 
         {
+            exam = true;
             for (int i = 0; i < dzArr.Length; i++)
             {
                 dzArr[i] = random.Next(2, 12);
             }
         }
-        /// <summary>
-        /// Конструктор который позволяет поменять имя студенту
-        /// </summary>
-        /// <param name="name">Передача имени</param>
-        public Student(string name)
-        {
-            this.name = name;
-        }
-        /// <summary>
-        /// Конструктор который позволяет поменять имя и фамилию студенту
-        /// </summary>
-        /// <param name="name">Передача имени</param>
-        /// <param name="surname">Передача фамилии</param>
-        public Student(string surname, string name)
-        {
-            this.name = name;
-            this.surname = surname;
-        }
-        /// <summary>
-        /// Конструктор который позволяет поменять имя и фамилию и возраст студенту
-        /// </summary>
-        /// <param name="name">Передача имени</param>
-        /// <param name="surname">Передача фамилии</param>
-        /// <param name="age">Передача возраста</param>
-        public Student(string surname, string name, int age)
-        {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
-        }
-
-        //------------SETTERS------------
-        /// <summary>
-        /// Метод который позволяет поменять имя студенту
-        /// </summary>
-        /// <param name="name">Передача имени</param>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
-        /// <summary>
-        /// Метод который позволяет поменять фамилию студенту
-        /// </summary>
-        /// <param name="surname">Передача фамилии</param>
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-            set
-            {
-                surname = value;
-            }
-        }
-        /// <summary>
-        /// Метод который позволяет поменять возраст студенту
-        /// </summary>
-        /// <param name="age">Передача возраста</param>
-        public int Age
-        {
-            get
-            {
-                return age;
-            }
-            set
-            {
-                age = value;
-            }
-        }
-        /// <summary>
-        /// Метод который позволяет поменять дату рождения студенту
-        /// </summary>
-        /// <param name="year">Передача года</param>
-        /// <param name="month">Передача месяца</param>
-        /// <param name="day">Передача дня</param>
-        public void SetBirthday(int year, int month, int day)
-        {
-            dateBirthday = new DateTime(year, month, day);
-        }
-        /// <summary>
-        /// Метод который позволяет поменять адрес студенту
-        /// </summary>
-        /// <param name="adress">Передача адреса</param>
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            }
-        }
-        /// <summary>
-        /// Метод который позволяет поменять телефонный номер студенту
-        /// </summary>
-        /// <param name="phonenumber">Передача номера</param>
-        public int Phonenumber
-        {
-            get
-            {
-                return phoneNumber;
-            }
-            set
-            {
-                phoneNumber = value;
-            }
-        }
-
+        public Student(string surname, string name, int age) : base (surname,name,age){}
         /// <summary>
         /// Метод который позволяет рандомным образом определить сдал студент экзамен или нет
         /// </summary>
@@ -173,13 +50,13 @@
 
         public static bool operator ==(Student stud, Student stud1)
         {
-            if (stud.age == stud1.age && stud.name == stud1.name && stud.surname == stud1.surname)
+            if (stud.Age == stud1.Age && stud.Name == stud1.Name && stud.Surname == stud1.Surname)
                 return true;
             else return false;
         }
         public static bool operator !=(Student stud, Student stud1)
         {
-            if (stud.age != stud1.age && stud.name != stud1.name && stud.surname != stud1.surname)
+            if (stud.Age != stud1.Age && stud.Name != stud1.Name && stud.Surname != stud1.Surname)
                 return true;
             else return false;
         }
@@ -194,6 +71,14 @@
             if (stud.GetSumDz() < stud1.GetSumDz())
                 return stud.GetSumDz();
             else return stud1.GetSumDz();
+        }
+        public virtual void Print()
+        {
+            Console.WriteLine(Surname + "  " + Name + "  " + Age + " years." + "Sdal exam?" + exam + "\n");
+            for (int i = 0; i < x; i++)
+            {
+                Console.WriteLine(dzArr[i] + " ocenka za " + (i+1) +" dz");
+            }
         }
     }
 }
