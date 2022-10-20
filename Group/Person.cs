@@ -109,6 +109,7 @@
         {
             dateBirthday = new DateTime(year, month, day);
         }
+
         /// <summary>
         /// Метод который позволяет поменять адрес студенту
         /// </summary>

@@ -2,14 +2,7 @@
 
 namespace Group
 {
-    interface IAdd
-    {
-        virtual void AddStud()
-        {
-
-        }
-    }
-    internal class Group : Student, IAdd
+    internal class Group : Student, ICloneable,IComparable<Group>
     {
         static int countStudents = 12;
         ArrayList students = new ArrayList();
@@ -21,7 +14,6 @@ namespace Group
         string[] surnames = { "Shevchenko", "Vasilenko", "Ovcharenko", "Borisenko", "Tkachenko", "Fedorenko", "Jakovenko", "Pavlenko", "Ivashenko", "Sklyarenko", "Kravchenko", "Ponomarenko" };
 
         Random random = new Random();
-        //Student raitingStudents = new Student();
 
         //------------CONSTRUCTORS------------
         /// <summary>
@@ -98,7 +90,7 @@ namespace Group
         /// </summary>
         public int GetCountStudents()
         {
-            return countStudents;
+            return students.Count;
         }
         /// <summary>
         /// Этот метод возвращает кол-во студентов.
@@ -129,6 +121,16 @@ namespace Group
         /// <param name="surname">Фамилия</param>
         /// <param name="name">Имя</param>
         /// <param name="age">Возраст</param>
+        public object Clone()
+        {
+            return (this.students, this.nameGroup, this.nameSpecalizationGroup, this.numberSemester, this.names, this.surnames);
+        }
+        public int CompareTo(Group g)
+        {
+            if (this.students.Count > g.students.Count) return 1;
+            if (this.students.Count < g.students.Count) return -1;
+            return 0;
+        }
         public void AddStudent(string surname, string name, int age)
         {
             students.Add(new Student());

@@ -1,7 +1,7 @@
 ﻿namespace Group
 {
     
-     class Student : Person
+     class Student : Person, ICloneable, IComparable<Student>
     {
         private bool exam;
         private static int x = 10;
@@ -72,6 +72,16 @@
                 return stud.GetSumDz();
             else return stud1.GetSumDz();
         }
+        public object Clone()
+        {
+            return (this.Name, this.Surname, this.Age,this.Phonenumber, this.dzArr, this.exam);
+        }
+        public int CompareTo(Student stud)
+        {
+            if (this.GetSumDz() > stud.GetSumDz()) return 1;
+            if (this.GetSumDz() < stud.GetSumDz()) return -1;
+            return 0;
+        }
         public virtual void Print()
         {
             Console.WriteLine(Surname + "  " + Name + "  " + Age + " years." + "Sdal exam?" + exam + "\n");
@@ -80,5 +90,6 @@
                 Console.WriteLine(dzArr[i] + " ocenka za " + (i+1) +" dz");
             }
         }
+        
     }
 }
