@@ -16,8 +16,15 @@
             //g1.PrintGroup();
             //g.EliminationStudent();
             //g.UnsuccessfulStudent();
-            //g.Print();
-            Console.Write(g[1]);
+            g.AddStudent("Shvadovich", "Egor", 24);
+            Aspirant c = new Aspirant();
+            BadStudent b = new BadStudent();
+            GoodStudent gs = new GoodStudent();
+            g.AddStudent(c);
+            g.AddStudent(b);
+            g.AddStudent(gs);
+            g.Print();
+            //Console.Write(g[1]);
         }
     }
 }

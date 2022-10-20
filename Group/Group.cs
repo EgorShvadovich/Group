@@ -2,8 +2,14 @@
 
 namespace Group
 {
-    
-    internal class Group : Student
+    interface IAdd
+    {
+        virtual void AddStud()
+        {
+
+        }
+    }
+    internal class Group : Student, IAdd
     {
         static int countStudents = 12;
         ArrayList students = new ArrayList();
@@ -126,13 +132,14 @@ namespace Group
         public void AddStudent(string surname, string name, int age)
         {
             students.Add(new Student());
-            (students[students.Count] as Student).Name = names[random.Next(0, 12)];
-            (students[students.Count] as Student).Surname = surnames[random.Next(0, 12)];
-            (students[students.Count] as Student).Age = random.Next(16, 50);
-            (students[students.Count] as Student).SetExam();
+            (students[students.Count - 1] as Student).Name = name;
+            (students[students.Count - 1] as Student).Surname = surname;
+            (students[students.Count - 1] as Student).Age = age;
+            (students[students.Count - 1] as Student).SetExam();
         }
-        public void AddStudent()
+        public void AddStudent(Student g)
         {
+            students.Add(g);
         }
         /// <summary>
         /// Этот метод редактирует студента в группе.
@@ -225,7 +232,7 @@ namespace Group
         {
             Console.WriteLine("Nazvanie group: " + nameGroup);
             Console.WriteLine("Specialization group: " + nameSpecalizationGroup);
-            for (int i = 0; i < countStudents; i++)
+            for (int i = 0; i < students.Count; i++)
             {
                 Console.WriteLine((i + 1) + ")  " + (students[i] as Student).Surname + "  " + (students[i] as Student).Name + "  " + (students[i] as Student).Age + " years");
             }

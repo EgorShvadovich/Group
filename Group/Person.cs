@@ -1,5 +1,7 @@
 ﻿namespace Group
 {
+    
+
     internal class Person 
     {
         private string name;
