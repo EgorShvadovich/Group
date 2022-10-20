@@ -2,8 +2,10 @@
 
 namespace Group
 {
-    internal class Group : Student, ICloneable,IComparable<Group>
+    internal class Group : Student, ICloneable,IComparable<Group>,IEnumerator
     {
+        int index;
+
         static int countStudents = 12;
         ArrayList students = new ArrayList();
         string nameGroup = "bu111";
@@ -15,6 +17,7 @@ namespace Group
 
         Random random = new Random();
 
+       
         //------------CONSTRUCTORS------------
         /// <summary>
         /// Конструктор без параметров который инициализирует группу студентов.
@@ -44,75 +47,39 @@ namespace Group
         /// </summary>
         public Group(Group g)
         {
-            countStudents = g.GetCountStudents();
+            countStudents = g.CountStudents;
             this.students = g.students;
             this.nameGroup = g.nameGroup;
             this.nameSpecalizationGroup = g.nameSpecalizationGroup;
             this.numberSemester = g.numberSemester;
         }
-        //------------SETTERS------------
-        /// <summary>
-        /// Этот метод меняет количество студентов.
-        /// </summary>
-        /// <param name="x">Количество,которое хотите задать</param>
+        public Group(ArrayList ar)
+        {
+            this.students = ar;
+        }
 
-        public void SetCountStudents(int x)
+        public int CountStudents
         {
-            countStudents = x;
+            get { return countStudents; }
+            set { countStudents = value; }
         }
-        /// <summary>
-        /// Этот метод меняет название группы.
-        /// </summary>
-        /// <param name="nameGroup">Задать название группы</param>
-        public void SetNameGroup(string nameGroup)
+        public string NameGroup
         {
-            this.nameGroup = nameGroup;
+            get { return nameGroup; }
+            set { nameGroup = value; }
         }
-        /// <summary>
-        /// Этот метод меняет специализацию группы.
-        /// </summary>
-        /// <param name="nameSpecalizationGroup">Задать название специализации</param>
-        public void SetNameSpecalizationGroup(string nameSpecalizationGroup)
+        public string SpecializationGroup
         {
-            this.nameSpecalizationGroup = nameSpecalizationGroup;
+            get { return nameSpecalizationGroup; }
+            set { nameSpecalizationGroup = value; }
         }
-        /// <summary>
-        /// Этот метод меняет номер семестра.
-        /// </summary>
-        /// <param name="numberSemester">Задать номер семестра</param>
-        public void SetNumberSemester(int numberSemester)
-        {
-            this.numberSemester = numberSemester;
+        public int NumberSemester
+        { 
+            get { return numberSemester; }
+            set { numberSemester = value; }
         }
-        //------------GETTERS------------
-        /// <summary>
-        /// Этот метод возвращает кол-во студентов.
-        /// </summary>
-        public int GetCountStudents()
-        {
-            return students.Count;
-        }
-        /// <summary>
-        /// Этот метод возвращает кол-во студентов.
-        /// </summary>
-        public string GetNameGroup()
-        {
-            return nameGroup;
-        }
-        /// <summary>
-        /// Этот метод возвращает название специализации группы.
-        /// </summary>
-        public string GetNameSpecalizationGroup()
-        {
-            return nameSpecalizationGroup;
-        }
-        /// <summary>
-        /// Этот метод возвращает номер семестра группы.
-        /// </summary>
-        public int GetNumberSemester()
-        {
-            return numberSemester;
-        }
+
+        
 
         //------------METHODS------------
         /// <summary>
@@ -125,6 +92,13 @@ namespace Group
         {
             return (this.students, this.nameGroup, this.nameSpecalizationGroup, this.numberSemester, this.names, this.surnames);
         }
+        //public int CompareTo(object g)
+        //{
+        //    Group other = g as Group;
+        //    if (this.students.Count > other.students.Count) return 1;
+        //    if (this.students.Count < other.students.Count) return -1;
+        //    return 0;
+        //}
         public int CompareTo(Group g)
         {
             if (this.students.Count > g.students.Count) return 1;
@@ -226,6 +200,7 @@ namespace Group
                 return true;
             else return false;
         }
+        
         //------------PRINT------------
         /// <summary>
         /// Показ группы в консоль.
@@ -281,5 +256,47 @@ namespace Group
                 students[i] = value;
             }
         }
+        /////////////////FOREACH///////////////////////////////////
+        public object Current
+        {
+            get;
+            private set;
+        }
+
+        public bool MoveNext()
+        {
+            if (index >= students.Count)
+                return false;
+
+            Current = students[index++];
+            return true;
+        }
+        public void Reset()
+        {
+            index = 0;
+        }
+        public IEnumerator GetEnumerator()
+        {
+            return new Group(students);
+        }
     }
+    class CompareByNumbSem : Group, IComparable<Group>
+    {
+        public int CompareTo(Group o)
+        {
+            if (NumberSemester > o.NumberSemester) return 1;
+            if (NumberSemester < o.NumberSemester) return -1;
+            return 0;
+        }
+    }
+    class CompareByNameGroup : Group, IComparable<Group>
+    {
+        public int CompareTo(Group o)
+        {
+            return string.Compare(NameGroup, o.NameGroup);
+        }
+    }
+   
+
+    
 }
