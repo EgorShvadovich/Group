@@ -24,7 +24,6 @@
             g.AddStudent(b);
             g.AddStudent(gs);
             g.Print();
-            g.xxx();
             //foreach (var item in g)
             //{
             //    Console.WriteLine(123);
